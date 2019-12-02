@@ -24,3 +24,22 @@ We can change this by a path variable, by adding ":" followed by the path:
 httpbin.org/:status
 <br>
 We add the value of status path at Postman "Path Variables"
+<h2> Working with Variables </h2>
+Whatever we write in the test tab, will be exectued after the request. This means that we hava access to the response body.
+In Postman we use:
+<br>
+pm.response.json();
+<br>
+const response = pm.response.json();
+<br>
+console.log(response.uuid);
+<br>
+In Postman snippets, we can set global variables, on the right menu:
+<br>
+pm.globals.set("variable_key", variable_value);
+<br>
+And then set the variable_value the "response.uuid".
+<br>
+In Postman, the way we access global variables is by using double curly brakets {{}}. We can write on the request body:
+<br>
+{	"orderID": "{{orderId}}"}
