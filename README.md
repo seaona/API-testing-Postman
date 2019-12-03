@@ -44,9 +44,35 @@ In Postman, the way we access global variables is by using double curly brakets 
 <br>
 {	"orderID": "{{orderId}}"}
 <h2>Pre-request Script</h2>
-It runs before the request happens. For example, let's generate a random number to put in a variable that we are going to send in the body of a Post Request. We can write inside the pre-request script:
+It runs before the request happens. For example, let's generate a random number, between 1 and 100, to put in a variable that we are going to send in the body of a Post Request. We can write inside the pre-request script:
 <br>
 const customerId = Math.floor((Math.random()x 100)+1);
 <br>
 console.log(customerId);
 <br>
+We can also use random variables in Postman:
+<br>
+"quantity": {{$randomInt}}
+<br>
+This will generate a random integer, directly in json body.
+<h2>Writing Tests</h2>
+<h3>Check Status 200</h3>
+We can go to "Tests" tab and on the right menu click "Status Code: Code is 200".
+<h3>Check Customer Id Status</h3>
+We click on the right menu: "Response Body: JSON value check". We write the expect value which is on the json object response body (jsonData.customerId) and compare it to the global variable ("get global variable") that we had on pre-request.
+<br>
+pm.test("Your test name", function () {
+<br>
+    var jsonData = pm.response.json();
+    <br>
+    pm.expect(jsonData.json.customerId).to.eql(pm.globals.get("customerId"));
+    <br>
+});
+<br>
+We can also check a value from an array like this:
+<br>
+pm.expect(jsonData.json.products[0].productId).to.eql(pm.globals.get("3000"));
+<br>
+<h3>Automation</h3>
+We can use the "Collection Runner" to see if our tests can be automated.
+If we want to go in the direction of running our API tests in a continuous integration service, like Jenkyns, we need to use a tool like Newman, which can be integrated there. 
