@@ -1,4 +1,4 @@
-<h1> API-testing-Postman </h1>
+<h1>API-testing-Postman</h1>
 httpbin.org
 <br>
 Example of a request:
@@ -43,3 +43,10 @@ And then set the variable_value the "response.uuid".
 In Postman, the way we access global variables is by using double curly brakets {{}}. We can write on the request body:
 <br>
 {	"orderID": "{{orderId}}"}
+<h2>Pre-request Script</h2>
+It runs before the request happens. For example, let's generate a random number to put in a variable that we are going to send in the body of a Post Request. We can write inside the pre-request script:
+<br>
+const customerId = Math.floor((Math.random()x 100)+1);
+<br>
+console.log(customerId);
+<br>
